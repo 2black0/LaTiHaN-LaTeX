@@ -1,0 +1,68 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage[bahasai]{babel}
+
+\geometry{a4paper,total={185mm,257mm},left=15mm,top=15mm,}
+
+\title{Latihan \LaTeX}
+\author{Ardy Seto Priambodo}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Grafik in \LaTeX}
+
+Banyak cara untuk menampilkan grafik pada \LaTeX. Berikut adalah tutorial salah satu cara menampilkan grafik di \LaTeX yang mana grafik yang ingin ditampilkan adalah hasil plot menggunakan matplotlib (python). Langkahnya sangat sederhana, dapat dilakukan dengan cara berikut :
+
+\begin{enumerate}
+    \item Buat plot menggunakan kode python dengan matplotlib dan simpan kedalam format \textbf{PDF}
+    \item Masukkan hasil plot tersebut ke \LaTeX seperti memasukkan gambar menggunakan paket graphicx
+\end{enumerate}
+
+\noindent Berikut contoh kode python yang digunakan untuk mengenerate grafik dari matplotlib dan kemudian disimpan dalam PDF
+
+\begin{verbatim}
+    import matplotlib.pyplot as plt
+
+    ks = range(5, 14)
+    results = [0.77627718442, 0.779758651376, 0.779831336605, 0.780332508531, 0.780986909681, 0.803343901758, 0.804763267426, 0.799750946218, 0.801493061947]
+    
+    plt.rc('text', usetex=True)
+    plt.rc('font', family='serif')
+    
+    f = plt.figure()
+    plt.plot(ks, results)
+    plt.title(r'\textbf{Mutual Information Feature Selection}', fontsize=11)
+    plt.xlabel(r'\textbf{Best K features}', fontsize=11)
+    plt.ylabel(r'\textbf{AUC Score on split11 Dataset}', fontsize=11)
+    plt.show()
+
+    f.savefig("graph.pdf", bbox_inches='tight')
+\end{verbatim}
+
+\noindent Berikut kode untuk menampilkan grafik dari file PDF pada \LaTeX
+
+\begin{verbatim}
+    \begin{figure}[h]
+    \centering
+    \includegraphics{graph.pdf}
+    \caption{Feature Selection Based on Mutual Information}
+    \label{fig:fs_mi}
+    \end{figure}
+\end{verbatim}
+
+\begin{figure}[h]
+\centering
+%\includegraphics[width=8cm, height=6cm]{graph.pdf}
+\includegraphics{graph.pdf}
+\caption{Feature Selection Based on Mutual Information}
+\label{fig:fs_mi}
+\end{figure}
+
+\section*{Daftar Pustaka}
+https://ercanozturk.org/2017/12/16/python-matplotlib-plots-in-latex/
+
+\end{document} 
